@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 
+import 'package:unit_converter/widgets/widgets.dart';
+
+const _categoryName = 'Cake';
+const _categoryIcon = Icons.cake;
+const _categoryColor = Colors.green;
+
 void main() {
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Hello Rectangle"),
-          backgroundColor: Colors.green[900],
-        ),
-        body: HelloRectangle(),
-      ),
-    ),
-  );
+  runApp(UniConverterApp());
 }
 
-class HelloRectangle extends StatelessWidget {
+class UniConverterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.greenAccent,
-        height: 400.0,
-        width: 500.0,
-        child: Center(child: Text("Hello")),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Unit Converter',
+      home: Scaffold(
+        backgroundColor: Colors.green[100],
+        body: Center(
+          child: Category(
+            name: _categoryName,
+            color: _categoryColor,
+            iconLocation: _categoryIcon,
+          ),
+        ),
       ),
     );
   }
