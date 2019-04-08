@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:meta/meta.dart';
 
+import 'package:unit_converter/models/models.dart';
+
 final _rowHeight = 100.0;
 final _borderRadius = BorderRadius.circular(_rowHeight / 2);
 
@@ -10,16 +12,23 @@ class Category extends StatelessWidget {
   final IconData iconLocation;
   final String name;
   final ColorSwatch color;
+  final List<Unit> units;
 
   Category({
     Key key,
     @required this.iconLocation,
     @required this.color,
+    @required this.units,
     @required this.name})
       : assert(iconLocation != null),
+        assert(units != null),
         assert(color != null),
         assert(name != null),
         super(key: key);
+
+  void _navigateToConverter(BuildContext context) {
+
+  }
 
   @override
   Widget build(BuildContext context) {

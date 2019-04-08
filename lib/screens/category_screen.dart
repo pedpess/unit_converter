@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:unit_converter/widgets/category.dart';
+import 'package:unit_converter/models/models.dart';
 
 final _backgroundColor = Colors.green[100];
 
@@ -36,6 +37,16 @@ class CategoryScreen extends StatelessWidget {
     );
   }
 
+  List<Unit> _retrieveUnitList(String categoryName) {
+    return List.generate(10, (int i) {
+      i += 1;
+      return Unit(
+        name: '$categoryName Unit $i',
+        conversion: i.toDouble(),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final categories = <Category>[];
@@ -45,6 +56,7 @@ class CategoryScreen extends StatelessWidget {
         name: _categoryNames[i],
         color: _baseColors[i],
         iconLocation: Icons.cake,
+        units: _retrieveUnitList(_categoryNames[i]),
       ));
     }
 
