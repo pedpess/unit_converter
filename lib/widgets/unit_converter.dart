@@ -41,18 +41,17 @@ class _UnitConverterState extends State<UnitConverter> {
     }
   }
 
-  void _createDropdownItems() {
+  void _createDropdownMenuItems() {
     var newItems = <DropdownMenuItem>[];
     for (var unit in widget.category.units) {
       newItems.add(DropdownMenuItem(
-        value: unit.name,
-        child: Container(
-          child: Text(
-            unit.name,
-            softWrap: true,
-          ),
-        )
-      ));
+          value: unit.name,
+          child: Container(
+            child: Text(
+              unit.name,
+              softWrap: true,
+            ),
+          )));
     }
     setState(() {
       _unitMenuItems = newItems;
@@ -84,7 +83,7 @@ class _UnitConverterState extends State<UnitConverter> {
   void _updateConversion() {
     setState(() {
       _convertedValue =
-      _format(_inputValue * (_toValue.conversion / _fromValue.conversion));
+          _format(_inputValue * (_toValue.conversion / _fromValue.conversion));
     });
   }
 
@@ -165,9 +164,69 @@ class _UnitConverterState extends State<UnitConverter> {
 
   @override
   Widget build(BuildContext context) {
+    final input = Padding(
+      padding: _padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          TextField(
+            style: Theme.of(context).textTheme.display1,
+            decoration: InputDecoration(
+              labelStyle: Theme.of(context).textTheme.display1,
+              errorText: _showValidationError ? 'Invalid number entered' : null,
+              labelText: 'Input',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0.0),
+              ),
+            ),
+            keyboardType: TextInputType.number,
+            onChanged: _updateInputValue,
+          ),
+          _createDropdown(_fromValue.name, _updateFromConversion),
+        ],
+      ),
+    );
 
+    final arrows = RotatedBox(
+        quarterTurns: 1,
+        child: Icon(
+          Icons.compare_arrows,
+          size: 40.0,
+        ));
 
-    return Padding (
+    final output = Padding(
+      padding: _padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          InputDecorator(
+            child: Text(
+              _convertedValue,
+              style: Theme.of(context).textTheme.display1,
+            ),
+            decoration: InputDecoration(
+              labelText: 'Output',
+              labelStyle: Theme.of(context).textTheme.display1,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0.0),
+              ),
+            ),
+          ),
+          _createDropdown(_toValue.name, _updateToConversion),
+        ],
+      ),
+    );
+
+    final converter = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        input,
+        arrows,
+        output,
+      ],
+    );
+
+    return Padding(
       padding: _padding,
       child: converter,
     );
