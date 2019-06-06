@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:unit_converter/models/models.dart';
 
 class Category {
-  final IconData iconLocation;
+  final String iconLocation;
   final String name;
   final ColorSwatch color;
   final List<Unit> units;
